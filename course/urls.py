@@ -1,9 +1,11 @@
 from django.urls import path
-
-from course.apps import CourseConfig
-from course.views import StageViewSet, SubjectCreateAPIView, SubjectListAPIView, SubjectRetrieveAPIView, SubjectUpdateAPIView, SubjectDestroyAPIView
-app_name = CourseConfig.name
 from rest_framework.routers import DefaultRouter
+from course.apps import CourseConfig
+from course.views import (StageViewSet, SubjectCreateAPIView, SubjectListAPIView, SubjectRetrieveAPIView,
+                          SubjectUpdateAPIView, SubjectDestroyAPIView)
+
+app_name = CourseConfig.name
+
 
 router = DefaultRouter()
 router.register(r'stage', StageViewSet)

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
@@ -9,7 +8,7 @@ from course.serializers import StageSerializer, SubjectSerializer
 
 class StageViewSet(viewsets.ViewSet):
 
-    '''Класс вьюсет для модели Курс'''
+    """ Класс вьюсет для модели Курс """
 
     queryset = Stage.objects.all()
     serialer_class = StageSerializer
@@ -31,10 +30,13 @@ class SubjectRetrieveAPIView(RetrieveAPIView):
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
 
+
 class SubjectUpdateAPIView(UpdateAPIView):
 
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
 
+
 class SubjectDestroyAPIView(DestroyAPIView):
+
     queryset = Subject.objects.all()
