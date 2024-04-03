@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
-from course.models import Stage, Subject
+from course.course_modls.models import Stage, Subject
 from course.serializers import StageSerializer, SubjectSerializer
 # Create your views here.
 
