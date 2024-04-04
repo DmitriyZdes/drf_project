@@ -41,8 +41,15 @@ INSTALLED_APPS = [
     'course',
     'rest_framework',
     'users',
+    'django-filters',
 
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        ...
+    )}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
