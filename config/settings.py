@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     'course',
     'rest_framework',
-    'users'
+    'users',
 
 ]
 

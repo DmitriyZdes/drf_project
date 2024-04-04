@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
-from course.course_modls.models import Subject, Stage
+from course.models import Subject, Stage
 
 
 class SubjectSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Subject
-        fields = '__all__'
+        fields = ['stage', 'name', 'preview', 'user', 'description', 'subjects_amount']
 
     @staticmethod
     def get_subjects_amount():
@@ -19,7 +19,9 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 class StageSerializer(serializers.ModelSerializer):
 
+    subject = SubjectSerializer(read_only=True)
+
     class Meta:
 
         model = Stage
-        fields = '__all__'
+        fields = ['name', 'preview', 'user', 'description', 'subject']

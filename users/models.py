@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from course.course_modls.models import Stage, Subject
+from course.models import Stage, Subject
 
 
 # Create your models here.
