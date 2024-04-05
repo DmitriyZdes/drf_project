@@ -1,8 +1,4 @@
 from django.db import models
-
-from users.models import User
-
-
 # Create your models here.
 
 
@@ -11,7 +7,8 @@ class Stage(models.Model):
     name = models.CharField(max_length=100, verbose_name='название')
     preview = models.ImageField(upload_to='media/course/stage', verbose_name='картинка', null=True, blank=True)
     description = models.TextField(verbose_name='описание')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', null=True, blank=True)
+    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='владелец курса',
+                              blank=True, null=True)
 
     def __str__(self):
 
@@ -24,11 +21,12 @@ class Stage(models.Model):
 
 class Subject(models.Model):
 
-    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(max_length=100, verbose_name='название')
     preview = models.ImageField(upload_to='media/course/subject', verbose_name='превью', null=True, blank=True)
     description = models.TextField(verbose_name='описание')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', null=True, blank=True)
+    owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='владелец урока',
+                              blank=True, null=True)
 
     def __str__(self):
 

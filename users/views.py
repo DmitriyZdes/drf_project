@@ -3,6 +3,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView,
 from users.serializers import PaymentSerializer
 from users.models import Payment
 
+
 class PaymentCreateAPIView(CreateAPIView):
 
     serializer_class = PaymentSerializer

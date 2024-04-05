@@ -1,9 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
 from course.models import Stage, Subject
-
-
 # Create your models here.
 
 
@@ -18,6 +15,7 @@ class User(AbstractUser):
     phone_number = models.CharField(max_length=50, verbose_name='номер телефона', blank=True, null=True)
     city = models.CharField(max_length=100, verbose_name='город', blank=True, null=True)
 
+
 class Payment(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь', null=True, blank=True)
@@ -26,3 +24,11 @@ class Payment(models.Model):
     payed_subject = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='оплаченный предмет')
     sum = models.PositiveIntegerField(verbose_name='сумма оплаты')
     pay_approach = models.CharField(max_length=100, verbose_name='способ оплаты')
+
+    def __str__(self):
+
+        return f'{self.payed_stage} {self.pay_approach}'
+
+    class Meta:
+        verbose_name = 'платеж'
+        verbose_name_plural = 'платежи'
