@@ -14,7 +14,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 
 class StageSerializer(serializers.ModelSerializer):
 
-    subject_amount = SerializerMethodField(many=True)
+    subject_amount = SerializerMethodField()
 
     class Meta:
 
