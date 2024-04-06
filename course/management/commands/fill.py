@@ -1,5 +1,5 @@
 from django.core.management import BaseCommand
-from users.models import Payment
+from users.models import Payment, User
 
 
 class Command(BaseCommand):
@@ -11,7 +11,7 @@ class Command(BaseCommand):
             payment_content = [
 
                 {
-                    'user': 'Дмитрий',
+                    'user': User.objects.get_or_create(email='test1@sky.pro'),
                     'date': '04/04/2024',
                     'payed_stage': 'Программирование',
                     'payed_subject': 'Высшая математика',

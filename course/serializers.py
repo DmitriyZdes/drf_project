@@ -15,6 +15,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 class StageSerializer(serializers.ModelSerializer):
 
     subject_amount = SerializerMethodField()
+    subject_list = SubjectSerializer(source='subject_set', many=True, read_only=True)
 
     class Meta:
 
