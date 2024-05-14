@@ -15,7 +15,7 @@ class PaymentListAPIView(ListAPIView):
     queryset = Payment.objects.all()
     filter_backends = [OrderingFilter, DjangoFilterBackend]
     ordering_fields = ['date']
-    filterset_fields = ['stage']
+    filterset_fields = ['stage', 'pay_approach']
 
 
 class PaymentRetrieveAPIView(RetrieveAPIView):
