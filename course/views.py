@@ -2,7 +2,9 @@ from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 
 from course.models import Stage, Subject
-from course.serializers import StageSerializer
+from course.serializers import StageSerializer, SubjectSerializer
+
+
 # Create your views here.
 
 
@@ -16,24 +18,24 @@ class StageViewSet(viewsets.ViewSet):
 
 class SubjectCreateAPIView(CreateAPIView):
 
-    serializer_class = StageSerializer
+    serializer_class = SubjectSerializer
 
 
 class SubjectListAPIView(ListAPIView):
 
-    serializer_class = StageSerializer
+    serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
 
 
 class SubjectRetrieveAPIView(RetrieveAPIView):
 
-    serializer_class = StageSerializer
+    serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
 
 
 class SubjectUpdateAPIView(UpdateAPIView):
 
-    serializer_class = StageSerializer
+    serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
 
 

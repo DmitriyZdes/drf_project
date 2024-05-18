@@ -20,8 +20,8 @@ class StageSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Stage
-        fields = ['name', 'preview', 'user', 'description', 'subject_amount']
+        fields = ['name', 'preview', 'description', 'subject_amount', 'subject_list']
 
     @staticmethod
-    def get_subjects_amount(stage):
-        return Subject.objects.filter(stage=stage).count()
+    def get_subject_amount(stage):
+        return Stage.objects.filter(stage=stage).count()
