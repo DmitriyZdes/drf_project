@@ -9,6 +9,7 @@ class Stage(models.Model):
     description = models.TextField(verbose_name='описание')
     owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='владелец курса',
                               blank=True, null=True)
+    objects = models.Manager()
 
     def __str__(self):
 
@@ -27,6 +28,7 @@ class Subject(models.Model):
     description = models.TextField(verbose_name='описание')
     owner = models.ForeignKey('users.User', on_delete=models.CASCADE, verbose_name='владелец урока',
                               blank=True, null=True)
+    objects = models.Manager()
 
     def __str__(self):
 

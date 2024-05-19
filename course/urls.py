@@ -17,4 +17,6 @@ urlpatterns = [
     path('course/update/<int:pk>/', SubjectUpdateAPIView.as_view(), name='update_course'),
     path('course/delete/<int:pk>/', SubjectDestroyAPIView.as_view(), name='delete_course')
 
-] + router.urls
+]
+
+urlpatterns += router.urls

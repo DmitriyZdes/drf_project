@@ -24,4 +24,4 @@ class StageSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_subject_amount(stage):
-        return Stage.objects.filter(stage=stage).count()
+        return stage.subject_set.count()

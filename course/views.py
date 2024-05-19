@@ -1,14 +1,16 @@
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 
 from course.models import Stage, Subject
+from course.permissions import IsModer
 from course.serializers import StageSerializer, SubjectSerializer
 
 
 # Create your views here.
 
 
-class StageViewSet(viewsets.ViewSet):
+class StageViewSet(viewsets.ModelViewSet):
 
     """ Класс вьюсет для модели Курс """
 
@@ -19,6 +21,7 @@ class StageViewSet(viewsets.ViewSet):
 class SubjectCreateAPIView(CreateAPIView):
 
     serializer_class = SubjectSerializer
+    permission_classes = [IsAuthenticated | IsModer]
 
 
 class SubjectListAPIView(ListAPIView):
@@ -42,3 +45,4 @@ class SubjectUpdateAPIView(UpdateAPIView):
 class SubjectDestroyAPIView(DestroyAPIView):
 
     queryset = Subject.objects.all()
+    permission_classes = [IsAuthenticated | IsModer]
