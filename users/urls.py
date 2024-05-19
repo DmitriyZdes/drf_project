@@ -14,10 +14,10 @@ urlpatterns = [
     path('payment/update/<int:pk>/', PaymentUpdateAPIView.as_view(), name='update_payment'),
     path('payment/delete/<int:pk>/', PaymentDestroyAPIView.as_view(), name='delete_payment'),
     path('users/', UserListAPIView.as_view(), name='users_list'),
-    path('users/create', UserRegisterAPIView.as_view(), name='users_create'),
+    path('users/create/', UserRegisterAPIView.as_view(), name='users_create'),
     path('users/update/<int:pk>/', UserUpdateAPIView.as_view(), name='users_update'),
     path('users/delete/<int:pk>/', UserDestroyAPIView.as_view(), name='users_destroy'),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_access'),
-    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('login/', TokenObtainPairView.as_view(), name='login'),
+    path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
 
 ]

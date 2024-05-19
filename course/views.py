@@ -3,7 +3,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView,
 from rest_framework.permissions import IsAuthenticated
 
 from course.models import Stage, Subject
-from course.permissions import IsModer
+from course.permissions import IsModer, IsOwner
 from course.serializers import StageSerializer, SubjectSerializer
 
 
@@ -16,6 +16,7 @@ class StageViewSet(viewsets.ModelViewSet):
 
     queryset = Stage.objects.all()
     serializer_class = StageSerializer
+    permission_classes = [IsAuthenticated | IsModer | IsOwner]
 
 
 class SubjectCreateAPIView(CreateAPIView):
@@ -28,21 +29,24 @@ class SubjectListAPIView(ListAPIView):
 
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
+    permission_classes = [IsAuthenticated | IsModer | IsOwner]
 
 
 class SubjectRetrieveAPIView(RetrieveAPIView):
 
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
+    permission_classes = [IsAuthenticated | IsModer | IsOwner]
 
 
 class SubjectUpdateAPIView(UpdateAPIView):
 
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
+    permission_classes = [IsAuthenticated | IsModer | IsOwner]
 
 
 class SubjectDestroyAPIView(DestroyAPIView):
 
     queryset = Subject.objects.all()
-    permission_classes = [IsAuthenticated | IsModer]
+    permission_classes = [IsAuthenticated | IsModer | IsOwner]
