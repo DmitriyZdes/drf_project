@@ -1,4 +1,5 @@
-from django_filters.rest_framework import DjangoFilterBackend, OrderingFilter
+from rest_framework.filters import OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 
@@ -17,7 +18,7 @@ class PaymentListAPIView(ListAPIView):
     queryset = Payment.objects.all()
     filter_backends = [OrderingFilter, DjangoFilterBackend]
     ordering_fields = ['date']
-    filterset_fields = ['stage', 'pay_approach']
+    filterset_fields = ['payed_stage', 'pay_approach']
 
 
 class PaymentRetrieveAPIView(RetrieveAPIView):

@@ -24,6 +24,7 @@ class Payment(models.Model):
     payed_subject = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='оплаченный предмет')
     sum = models.PositiveIntegerField(verbose_name='сумма оплаты')
     pay_approach = models.CharField(max_length=100, verbose_name='способ оплаты')
+    objects = models.Manager()
 
     def __str__(self):
 
