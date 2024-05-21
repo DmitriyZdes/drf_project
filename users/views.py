@@ -10,6 +10,7 @@ from users.models import Payment, User
 class PaymentCreateAPIView(CreateAPIView):
 
     serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentListAPIView(ListAPIView):
@@ -19,28 +20,39 @@ class PaymentListAPIView(ListAPIView):
     filter_backends = [OrderingFilter, DjangoFilterBackend]
     ordering_fields = ['date']
     filterset_fields = ['payed_stage', 'pay_approach']
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentRetrieveAPIView(RetrieveAPIView):
 
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentUpdateAPIView(UpdateAPIView):
 
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
+    permission_classes = [IsAuthenticated]
 
 
 class PaymentDestroyAPIView(DestroyAPIView):
 
     queryset = Payment.objects.all()
+    permission_classes = [IsAuthenticated]
 
 
 class UserRegisterAPIView(CreateAPIView):
 
     serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def perform_create(self, serializer):
+
+        user = serializer.save(is_active=True)
+        user.set_password(user.password)
+        user.save()
 
 
 class UserListAPIView(ListAPIView):
@@ -51,6 +63,13 @@ class UserListAPIView(ListAPIView):
 
 
 class UserUpdateAPIView(UpdateAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class UserRetrieveAPIView(RetrieveAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer

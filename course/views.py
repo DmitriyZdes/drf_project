@@ -16,37 +16,44 @@ class StageViewSet(viewsets.ModelViewSet):
 
     queryset = Stage.objects.all()
     serializer_class = StageSerializer
-    permission_classes = [IsAuthenticated | IsModer | IsOwner]
+
+    def get_permissions(self):
+
+        if self.action in ["PUT", "DELETE"]:
+            self.permission_classes = [IsAuthenticated & IsOwner, ~IsModer]
+        else:
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
 
 
 class SubjectCreateAPIView(CreateAPIView):
 
     serializer_class = SubjectSerializer
-    permission_classes = [IsAuthenticated | IsModer]
+    permission_classes = [IsAuthenticated, ~IsModer]
 
 
 class SubjectListAPIView(ListAPIView):
 
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
-    permission_classes = [IsAuthenticated | IsModer | IsOwner]
+    permission_classes = [IsAuthenticated & IsOwner, ~IsModer]
 
 
 class SubjectRetrieveAPIView(RetrieveAPIView):
 
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
-    permission_classes = [IsAuthenticated | IsModer | IsOwner]
+    permission_classes = [IsAuthenticated & IsOwner, ~IsModer]
 
 
 class SubjectUpdateAPIView(UpdateAPIView):
 
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
-    permission_classes = [IsAuthenticated | IsModer | IsOwner]
+    permission_classes = [IsAuthenticated & IsOwner, ~IsModer]
 
 
 class SubjectDestroyAPIView(DestroyAPIView):
 
     queryset = Subject.objects.all()
-    permission_classes = [IsAuthenticated | IsModer | IsOwner]
+    permission_classes = [IsAuthenticated & IsOwner, ~IsModer]
