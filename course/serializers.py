@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
-from course.models import Subject, Stage
+from course.models import Subject, Stage, Subscription
+from course.validators import CourseValidator
 
 
 class SubjectSerializer(serializers.ModelSerializer):
@@ -10,12 +11,22 @@ class SubjectSerializer(serializers.ModelSerializer):
 
         model = Subject
         fields = '__all__'
+        validators = [CourseValidator(field='link')]
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = Subscription
+        fields = '__all__'
 
 
 class StageSerializer(serializers.ModelSerializer):
 
     subject_amount = SerializerMethodField()
     subject_list = SubjectSerializer(source='subject_set', many=True, read_only=True)
+    subscription = SubscriptionSerializer()
 
     class Meta:
 
@@ -25,3 +36,8 @@ class StageSerializer(serializers.ModelSerializer):
     @staticmethod
     def get_subject_amount(stage):
         return stage.subject_set.count()
+
+    def get_subscription(self, obj):
+
+        user = self.request.user
+        return obj.subscriprion_set.filter(user=user).exists()
