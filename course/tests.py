@@ -27,7 +27,7 @@ class SubjectTestCase(APITestCase):
     def test_subject_create(self):
         url = reverse("course:create_course")
         data = {
-            "title": "Урок 2"
+            "name": "Урок 2"
         }
         response = self.client.post(url, data)
         self.assertEqual(
@@ -40,7 +40,7 @@ class SubjectTestCase(APITestCase):
     def test_subject_update(self):
         url = reverse("course:update_course", args=(self.subject.pk,))
         data = {
-            "title": "Урок_10"
+            "name": "Урок_10"
         }
         response = self.client.patch(url, data)
         data = response.json()

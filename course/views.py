@@ -76,7 +76,7 @@ class SubscriptionAPIView(APIView):
         user = self.request.user
         stage_id = self.request.data.get("stage")
         stage_item = get_object_or_404(Stage, pk=stage_id)
-        subs_item = Subscription.objects.all().filter(user=user).filter(stage_item=stage_item)
+        subs_item = Subscription.objects.all().filter(user=user).filter(stage=stage_item)
 
         if subs_item.exists():
             subs_item.delete()
