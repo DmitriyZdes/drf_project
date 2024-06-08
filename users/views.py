@@ -5,12 +5,23 @@ from rest_framework.permissions import IsAuthenticated
 
 from users.serializers import PaymentSerializer, UserSerializer
 from users.models import Payment, User
+from users.services import create_stripe_product, create_stripe_price, create_stripe_session
 
 
 class PaymentCreateAPIView(CreateAPIView):
 
     serializer_class = PaymentSerializer
     permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+
+        payment = serializer.save(user=self.request.user, payed_approach='банковской картой')
+        product = create_stripe_product(payment.stage)
+        price = create_stripe_price(product=product, amount=payment.amount)
+        session_id, session_url = create_stripe_session(price)
+        payment.session_id = session_id
+        payment.session_url = session_url
+        payment.save()
 
 
 class PaymentListAPIView(ListAPIView):
