@@ -26,12 +26,12 @@ class StageSerializer(serializers.ModelSerializer):
 
     subject_amount = SerializerMethodField()
     subject_list = SubjectSerializer(source='subject_set', many=True, read_only=True)
-    subscription = SubscriptionSerializer()
+    subscription = SerializerMethodField()
 
     class Meta:
 
         model = Stage
-        fields = ['name', 'preview', 'description', 'subject_amount', 'subject_list']
+        fields = ['name', 'preview', 'description', 'subject_amount', 'subject_list', 'subscription']
 
     @staticmethod
     def get_subject_amount(stage):
@@ -39,5 +39,5 @@ class StageSerializer(serializers.ModelSerializer):
 
     def get_subscription(self, obj):
 
-        user = self.request.user
+        user = self.context['request'].user
         return obj.subscriprion_set.filter(user=user).exists()
