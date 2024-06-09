@@ -9,6 +9,8 @@ from course.models import Stage, Subject, Subscription
 from course.paginators import SubjectPagination, StagePagination
 from course.permissions import IsModer, IsOwner
 from course.serializers import StageSerializer, SubjectSerializer, SubscriptionSerializer
+from course.tasks import send_letter
+from users.models import User
 
 
 # Create your views here.
@@ -31,6 +33,12 @@ class StageViewSet(viewsets.ModelViewSet):
         else:
             self.permission_classes = [IsAuthenticated, IsOwner]
         return super().get_permissions()
+
+    def update(self, request):
+
+        subscribers = Subscription.objects.filter(is_subscribed=True)
+        if subscribers.exists():
+            send_letter.delay()
 
 
 class SubjectCreateAPIView(CreateAPIView):
