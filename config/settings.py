@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'users',
     'django_filters',
     'rest_framework_simplejwt',
-    'django.contrib.staticfiles',
     'drf_yasg',
     'django_celery_beat',
 
@@ -176,3 +175,5 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=1)
     }
 }
+
+DJANGO_SETTINGS_MODULE = 'mysite.settings'

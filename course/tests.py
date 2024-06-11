@@ -14,14 +14,14 @@ class SubjectTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
     def test_subject_retrieve(self):
-        url = reverse("course:get_course", args=(self.subject.pk,))
+        url = reverse("course:get_course", args=(self.stage.pk,))
         response = self.client.get(url)
         data = response.json()
         self.assertEqual(
             response.status_code, status.HTTP_200_OK
         )
         self.assertEqual(
-            data.get("name"), self.subject.name
+            data.get("name"), self.stage.name
         )
 
     def test_subject_create(self):
@@ -38,7 +38,7 @@ class SubjectTestCase(APITestCase):
         )
 
     def test_subject_update(self):
-        url = reverse("course:update_course", args=(self.subject.pk,))
+        url = reverse("course:update_course", args=(self.stage.pk,))
         data = {
             "name": "Урок_10"
         }
@@ -52,7 +52,7 @@ class SubjectTestCase(APITestCase):
         )
 
     def test_subject_delete(self):
-        url = reverse("course:delete_course", args=(self.subject.pk,))
+        url = reverse("course:delete_course", args=(self.stage.pk,))
         response = self.client.delete(url)
         self.assertEqual(
             response.status_code, status.HTTP_204_NO_CONTENT
@@ -88,7 +88,7 @@ class SubscriptionTestCase(APITestCase):
         url = reverse("course:subscription_appearance")
         data = {"stage": self.stage.pk}
         Subscription.objects.create(stage=self.stage, user=self.user)
-        response = self.client.post(url,data)
+        response = self.client.post(url, data)
         data = response.json()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data, {'message': 'подписка удалена'})

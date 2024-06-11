@@ -40,4 +40,4 @@ class StageSerializer(serializers.ModelSerializer):
     def get_subscription(self, obj):
 
         user = self.context['request'].user
-        return obj.subscriprion_set.filter(user=user).exists()
+        return obj.subscription_set.filter(user=user).exists()

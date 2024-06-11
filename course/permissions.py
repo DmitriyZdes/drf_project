@@ -5,7 +5,7 @@ class IsModer(BasePermission):
 
     def has_permission(self, request, view):
 
-        if request.user.filter(groups='moders').exists():
+        if request.user.groups.filter(name='moders').exists():
             return True
         return False
 
