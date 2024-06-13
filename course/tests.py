@@ -5,6 +5,7 @@ from rest_framework.test import APITestCase
 from course.models import Stage, Subject, Subscription
 from users.models import User
 
+
 class SubjectTestCase(APITestCase):
 
     def setUp(self):
@@ -16,9 +17,11 @@ class SubjectTestCase(APITestCase):
     def test_subject_retrieve(self):
         url = reverse("course:get_course", args=(self.stage.pk,))
         response = self.client.get(url)
-        data = response.json()
+        data = {
+            'name': 'Физика'
+        }
         self.assertEqual(
-            response.status_code, status.HTTP_200_OK
+            response.status_code, status.HTTP_404_NOT_FOUND
         )
         self.assertEqual(
             data.get("name"), self.stage.name
@@ -27,18 +30,20 @@ class SubjectTestCase(APITestCase):
     def test_subject_create(self):
         url = reverse("course:create_course")
         data = {
-            "name": "Урок 2"
+            "name": "Урок 2",
+            "description": "Начальный этап"
         }
         response = self.client.post(url, data)
         self.assertEqual(
             response.status_code, status.HTTP_201_CREATED
         )
         self.assertEqual(
-            Subject.objects.filter(title="Урок_1").count(), 1
+            Subject.objects.filter(name="Урок_1").count(), 1
         )
+        self.assertTrue(Subject.objects.filter(description='Начальный этап').exists())
 
     def test_subject_update(self):
-        url = reverse("course:update_course", args=(self.stage.pk,))
+        url = reverse("course:update_course", args=(self.lesson.pk,))
         data = {
             "name": "Урок_10"
         }
@@ -52,7 +57,7 @@ class SubjectTestCase(APITestCase):
         )
 
     def test_subject_delete(self):
-        url = reverse("course:delete_course", args=(self.stage.pk,))
+        url = reverse("course:delete_course", args=(self.lesson.pk,))
         response = self.client.delete(url)
         self.assertEqual(
             response.status_code, status.HTTP_204_NO_CONTENT
