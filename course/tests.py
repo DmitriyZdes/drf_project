@@ -15,16 +15,16 @@ class SubjectTestCase(APITestCase):
         self.client.force_authenticate(user=self.user)
 
     def test_subject_retrieve(self):
-        url = reverse("course:get_course", args=(self.stage.pk,))
+        url = reverse("course:get_course", args=(self.lesson.pk,))
         response = self.client.get(url)
         data = {
-            'name': 'Физика'
+            'name': 'Урок_1'
         }
         self.assertEqual(
-            response.status_code, status.HTTP_404_NOT_FOUND
+            response.status_code, status.HTTP_200_OK
         )
         self.assertEqual(
-            data.get("name"), self.stage.name
+            data.get("name"), self.lesson.name
         )
 
     def test_subject_create(self):
